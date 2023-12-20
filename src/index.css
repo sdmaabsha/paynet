@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.table-row-highlight td {   border:1px solid black; }
+
+ 
+th.ant-table-cell{
+  border: 1px solid black;
+} 
+
+
+th.ant-table-cell {
+  font-family: 'Open Sans', Helvetica;
+  color: #efefef
+}
+
+.table-row-highlight {
+  background-color: #e6f7ff; /* Light blue color for row highlighting */
+}
+
+.ant-table-wrapper table
+{
+  border-bottom: 1px solid black !important;
+  border-right: 1px solid black !important;
+}
