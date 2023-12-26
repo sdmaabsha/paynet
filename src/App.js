@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Table } from 'antd'; // Add 'Layout', 'Menu' here
+import { Table,Layout } from 'antd'; // Add 'Layout', 'Menu' here
 import { MakeHttp } from './apis/restApis';
+import logo from './logo.svg';
 
 
 
-
+const { Header, Content } = Layout;
 
 
 const App = () => {
@@ -69,7 +70,7 @@ const App = () => {
               backgroundColor = 'yellow'; // Set color to orange if periodIndexValue is 'C'
             }
             else if (periodIndexValue === 'D') {
-              backgroundColor = 'orange'; // Set color to orange if periodIndexValue is 'D'
+              backgroundColor = 'pink'; // Set color to orange if periodIndexValue is 'D'
             }
             else if (periodIndexValue === 'E') {
               backgroundColor = 'red'; // Set color to orange if periodIndexValue is 'E'
@@ -90,7 +91,7 @@ const App = () => {
             <span style={{ fontWeight: 'bold',fontSize:"15px" }} >
               Bugs<br />
               <span style={{ color: 'orange' }}>
-                (Number Of Critical Bugs)
+                ("0" Critical Bugs Desired)
               </span>
             </span>
           ),
@@ -157,7 +158,7 @@ const App = () => {
               backgroundColor = 'yellow'; // Set color to orange if periodIndexValue is 'C'
             }
             else if (periodIndexValue === 'D') {
-              backgroundColor = 'orange'; // Set color to orange if periodIndexValue is 'D'
+              backgroundColor = 'pink'; // Set color to orange if periodIndexValue is 'D'
             }
             else if (periodIndexValue === 'E') {
               backgroundColor = 'red'; // Set color to orange if periodIndexValue is 'E'
@@ -247,7 +248,7 @@ const App = () => {
               backgroundColor = 'yellow'; // Set color to orange if periodIndexValue is 'C'
             }
             else if (periodIndexValue === 'D') {
-              backgroundColor = 'orange'; // Set color to orange if periodIndexValue is 'D'
+              backgroundColor = 'pink'; // Set color to orange if periodIndexValue is 'D'
             }
             else if (periodIndexValue === 'E') {
               backgroundColor = 'red'; // Set color to orange if periodIndexValue is 'E'
@@ -371,7 +372,7 @@ const App = () => {
               backgroundColor = 'yellow'; // Set color to orange if periodIndexValue is 'C'
             }
             else if (periodIndexValue === 'D') {
-              backgroundColor = 'orange'; // Set color to orange if periodIndexValue is 'D'
+              backgroundColor = 'pink'; // Set color to orange if periodIndexValue is 'D'
             }
             else if (periodIndexValue === 'E') {
               backgroundColor = 'red'; // Set color to orange if periodIndexValue is 'E'
@@ -467,6 +468,19 @@ const App = () => {
           backgroundColor = 'red'; // Set color to red for other values
         }
 
+        if (numericValue >= 0 && numericValue <= 20) {
+          backgroundColor = 'red'; // Set color to green for the range 0-20
+        } else if (numericValue > 20 && numericValue <= 40) {
+          backgroundColor = 'pink'; // Set color to yellow for the range 21-40
+        } else if (numericValue > 40 && numericValue <= 60) {
+          backgroundColor = 'orange'; // Set color to orange for the range 41-60
+        }else if (numericValue > 60 && numericValue <= 80) {
+          backgroundColor = 'yellow'; // Set color to orange for the range 41-60
+        } 
+        else if (numericValue > 80) {
+          backgroundColor = '#3FBF3F'; // Set color to green for values above 60
+        }
+
 
         return {
           props: {
@@ -499,25 +513,29 @@ const App = () => {
           render: (text, record) => {
             const erroractualValue = record.conditions[9]?.actualValue;
 
-             // Convert the string to a number for comparison
+        
             const numericValue = parseFloat(erroractualValue);
-
+             
             // Customize the conditions based on your requirements
             let backgroundColor = 'black'; // Default color
 
             if (numericValue < 3) {
               backgroundColor = '#3FBF3F'; // Set color to green if periodIndexValue is 'A'
             }
+            else if(numericValue==='NaN')
+            {
+              backgroundColor ='white';
+            }
             else {
               backgroundColor = 'red'; // Set color to red for other values
             }
 
-
+            const displayValue = erroractualValue === '-' ? erroractualValue : `${erroractualValue}%`;
             return {
               props: {
                 style: { background: backgroundColor }
               },
-              children: <div style={{"text-align":"center"}}>{erroractualValue}{' %'}</div>
+              children: <div style={{"text-align":"center"}}>{displayValue}</div>
             };
           },
         },
@@ -588,20 +606,25 @@ const App = () => {
 
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', margin: '50px', backgroundColor: 'blue', }}>
-      <div style={{ fontWeight: 'bold', fontSize: '30px', marginBottom: '20px',textAlign:'center', color: 'white' }}>
-      Static Code Quality Dashboard
-      </div>
-      <Table
-        columns={columns}
-        dataSource={tableData}
-        rowClassName={() => 'table-row-highlight'}
-        bordered
-        size="middle"
-        scroll={false}
-        pagination={false}
-      />
-    </div>
+    <Layout style={{ minHeight: '100vh',background:'lightslategray' }}>
+     
+      <Header style={{ background: '#001529', padding: 0, textAlign: 'center', color: 'white', fontSize: '24px' }}>
+      <img src={logo} alt="Logo" style={{ width: '100px', height: '40px', marginLeft: '100px',marginTop:'10px' }} />
+      <span style={{ marginLeft: '20px', fontSize: '30px' }}>Static Code Quality Dashboard</span>
+      </Header>
+      <Content style={{ margin: '50px', backgroundColor: '#f0f0f0' }}>
+        <Table
+          columns={columns}
+          dataSource={tableData}
+          rowClassName={() => 'table-row-highlight'}
+          bordered
+          size="middle"
+          scroll={false}
+          pagination={false}
+          style={{ backgroundColor: '#e6e6e6' }} // Change the background color of the table
+        />
+      </Content>
+    </Layout>
   );
 };
 

@@ -34,3 +34,16 @@ th.ant-table-cell {
   border-bottom: 1px solid black !important;
   border-right: 1px solid black !important;
 }
+
+.custom-font-size {
+  font-size: 14px; /* Adjust the font size according to your needs */
+}
+
+.ant-table-cell.ant-table-cell-fix-left.ant-table-cell-fix-left-last {
+  font-size: 16px; /* Adjust the font size according to your needs */
+  font-weight: bold;
+}
+main.ant-layout-content css-dev-only-do-not-override-y8x9xp
+{
+  background: lightslategray;
+}
