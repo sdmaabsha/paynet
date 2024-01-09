@@ -11,6 +11,7 @@ const { Header, Content } = Layout;
 
 const App = () => {
   const [tableData, setTableData] = useState([]);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   const fetchDataAndSetTable = async () => {
     try {
@@ -603,16 +604,32 @@ const App = () => {
     fetchDataAndSetTable();
   }, []); // Empty dependency array means it runs only once when the component mounts
 
+  useEffect(() => {
+    // Update currentDateTime every second
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
 
 
   return (
     <Layout style={{ minHeight: '100vh',background:'lightslategray' }}>
-     
       <Header style={{ background: '#001529', padding: 0, textAlign: 'center', color: 'white', fontSize: '24px' }}>
+      
       <img src={logo} alt="Logo" style={{ width: '100px', height: '40px', marginLeft: '100px',marginTop:'10px' }} />
       <span style={{ marginLeft: '20px', fontSize: '30px' }}>Static Code Quality Dashboard</span>
+      <span style={{ color: 'white', paddingLeft:'100px', fontSize: '25px' }}>
+              {currentDateTime.toLocaleString()}
+            </span>
+      
+      
       </Header>
       <Content style={{ margin: '50px', backgroundColor: '#f0f0f0' }}>
+ 
         <Table
           columns={columns}
           dataSource={tableData}
